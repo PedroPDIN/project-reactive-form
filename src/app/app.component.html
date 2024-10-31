@@ -3,7 +3,16 @@
     <mat-card-content>
       <app-users-list [usersList]="usersList"></app-users-list>
 
-      <div class="bg-green-500 p-4">TABS</div>
+      <div class="p-4">
+        <mat-tab-group [(selectedIndex)]="currentTabIndex">
+          <mat-tab label="Geral">
+            <app-general-informations></app-general-informations>
+          </mat-tab>
+
+          <mat-tab label="Contato"> Contato </mat-tab>
+          <mat-tab label="Dependente"> DEPENDENTE </mat-tab>
+        </mat-tab-group>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
