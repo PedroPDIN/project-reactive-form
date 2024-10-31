@@ -1,42 +1,23 @@
 <div class="p-4">
   <div class="p-4 grid lg:grid-cols-3 gap-4">
-    <div>
-      <p class="text-xl font-semibold">Nome:</p>
-      <p class="text-lg">Fulano</p>
-    </div>
 
-    <div>
-      <p class="text-xl font-semibold">Email:</p>
-      <p class="text-lg">{{ 'fulano@email.com' }}</p>
-    </div>
+    <app-user-info-item title="Nome" [text]="user?.name"></app-user-info-item>
+    <app-user-info-item title="Email" [text]="user?.email"></app-user-info-item>
+
   </div>
 
   <div class="p-4 grid lg:grid-cols-3 gap-4">
-    <div>
-      <p class="text-xl font-semibold">País:</p>
-      <p class="text-lg">Brazil</p>
-    </div>
 
-    <div>
-      <p class="text-xl font-semibold">Estado:</p>
-      <p class="text-lg">São Paulo</p>
-    </div>
+    <app-user-info-item title="País" [text]="user?.country"></app-user-info-item>
+    <app-user-info-item title="Estado" [text]="user?.state"></app-user-info-item>
+
   </div>
 
   <div class="p-4 grid lg:grid-cols-3 gap-4">
-    <div>
-      <p class="text-xl font-semibold">Estado Civil:</p>
-      <p class="text-lg">Solteiro</p>
-    </div>
 
-    <div>
-      <p class="text-xl font-semibold">Renda Mensal:</p>
-      <p class="text-lg">R$ 5.000,00</p>
-    </div>
+    <app-user-info-item title="Estado Civil" [text]="user?.maritalStatus | maritalStatus"></app-user-info-item>
+    <app-user-info-item title="Renda Mensal" [text]="user?.monthlyIncome | currency : 'BRL' : 'symbol' : '1.2-2' : 'pt-BR'"></app-user-info-item>
+    <app-user-info-item title="Data de Nascimento" [text]="user?.birthDate?.toString()"></app-user-info-item>
 
-    <div>
-      <p class="text-xl font-semibold">Data de Nascimento:</p>
-      <p class="text-lg">25/02/1991</p>
-    </div>
   </div>
 </div>
