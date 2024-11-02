@@ -1,0 +1,38 @@
+<div class="p-4 grid gap-4">
+  <p class="text-2xl font-semibold">Telefones:</p>
+
+  <app-phone-list [userPhoneList]="user?.phoneList"></app-phone-list>
+
+  <p class="text-2xl font-semibold">Endereços:</p>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-6">
+    <app-user-info-item title="Tipo" text="Residencial"></app-user-info-item>
+    <app-user-info-item title="Rua" text="Rua de tal"></app-user-info-item>
+    <app-user-info-item title="Complemento" text="Proximo ao parque"></app-user-info-item>
+    <app-user-info-item title="País" text="Brazil"></app-user-info-item>
+    <app-user-info-item title="Estado" text="São Paulo"></app-user-info-item>
+    <app-user-info-item title="Cidade" text="Ribeirão Preto"></app-user-info-item>
+  </div>
+
+  <hr class="block lg:hidden" />
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-6">
+    <app-user-info-item title="Tipo" text="Trabalho"></app-user-info-item>
+    <app-user-info-item title="Rua" text="-"></app-user-info-item>
+    <app-user-info-item title="Complemento" text="-"></app-user-info-item>
+    <app-user-info-item title="País" text="-"></app-user-info-item>
+    <app-user-info-item title="Estado" text="-"></app-user-info-item>
+    <app-user-info-item title="Cidade" text="-"></app-user-info-item>
+  </div>
+
+  <hr class="block lg:hidden" />
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-6">
+    <app-user-info-item title="Tipo" text="Alternativo"></app-user-info-item>
+    <app-user-info-item title="Rua" text="Estrada de tal"></app-user-info-item>
+    <app-user-info-item title="Complemento" text="Proximo ao Shopping"></app-user-info-item>
+    <app-user-info-item title="País" text="Brazil"></app-user-info-item>
+    <app-user-info-item title="Estado" text="São Paulo"></app-user-info-item>
+    <app-user-info-item title="Cidade" text="São Carlos"></app-user-info-item>
+  </div>
+</div>
