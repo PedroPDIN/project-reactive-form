@@ -1,0 +1,25 @@
+<div class="p-4">
+  <p class="text-2xl font-semibold">Dependências:</p>
+
+  <ng-container *ngIf="dependentList?.length === 0; else dependentsListTemplate">
+    <div>
+      <p>O usuário não possui dependentes.</p>
+    </div>
+  </ng-container>
+
+  <ng-template #dependentsListTemplate>
+    <div *ngFor="let dependent of dependentList">
+      <div class="grid sm:grid-cols-3">
+        <app-user-info-item title="Nome" [text]="dependent.name"></app-user-info-item>
+        <app-user-info-item title="Idade" [text]="dependent.age.toString()"></app-user-info-item>
+        <app-user-info-item title="Documento" [text]="dependent.document | cpf: true"></app-user-info-item>
+      </div>
+
+      <hr class="block sm:hidden" />
+    </div>
+
+  </ng-template>
+
+
+</div>
+
