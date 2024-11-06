@@ -11,3 +11,8 @@ body {
   "Helvetica Neue", sans-serif;
   background-color: gray;
 }
+
+.user-selected, .user-card-hover:hover {
+  background-color: #9ca3af !important;
+  cursor: pointer;
+}
