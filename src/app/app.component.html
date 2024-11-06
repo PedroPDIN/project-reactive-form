@@ -3,6 +3,13 @@
     <mat-card-content>
       <app-users-list [usersList]="usersList" (onUserSelected)="onUserSelected($event)"></app-users-list>
 
+      <app-buttons-container
+      [isInEditMode]="isInEditMode"
+      (onEditButton)="onEditButton()"
+      (onCancelButton)="onCancelButton()"
+      *ngIf="userSelectedIndex !== undefined"
+      ></app-buttons-container>
+
       <div class="p-4" *ngIf="userSelectedIndex !== undefined">
         <mat-tab-group [(selectedIndex)]="currentTabIndex">
           <mat-tab label="Geral">
