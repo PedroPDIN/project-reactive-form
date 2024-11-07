@@ -10,21 +10,12 @@
       *ngIf="userSelectedIndex !== undefined"
       ></app-buttons-container>
 
-      <div class="p-4" *ngIf="userSelectedIndex !== undefined">
-        <mat-tab-group [(selectedIndex)]="currentTabIndex">
-          <mat-tab label="Geral">
-            <app-general-informations [user]="userSelected"></app-general-informations>
-          </mat-tab>
+      <app-user-informations-container
+      *ngIf="userSelectedIndex !== undefined"
+      [isInEditMode]="isInEditMode"
+      [userSelected]="userSelected"
+      ></app-user-informations-container>
 
-          <mat-tab label="Contato">
-            <app-contact-informations [user]="userSelected"></app-contact-informations>
-          </mat-tab>
-
-          <mat-tab label="Dependente">
-            <app-dependents-list [dependentList]="userSelected.dependentsList"></app-dependents-list>
-          </mat-tab>
-        </mat-tab-group>
-      </div>
 
     </mat-card-content>
   </mat-card>
