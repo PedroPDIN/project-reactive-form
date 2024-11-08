@@ -13,6 +13,6 @@ export class UserInformationsContainerComponent implements OnChanges {
   @Input({ required: true }) userSelected: IUser = {} as IUser;
 
   ngOnChanges(_: SimpleChanges): void {
-    this.currentTabIndex = 1; // Quando houver mudanças no Input, o index do Tab, volta para o inicio (no caso volta para tab "Geral").
+    this.currentTabIndex = 0; // Quando houver mudanças no Input, o index do Tab, volta para o inicio (no caso volta para tab "Geral").
   }
 }
