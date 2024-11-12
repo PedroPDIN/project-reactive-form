@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { CountriesList } from '../../types/countries-list.type';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { StatesList } from '../../types/states-list.type';
+import { maritalStatusArray } from '../../utils/marital-status-description-map';
 
 @Component({
   selector: 'app-general-informations-edit',
@@ -28,7 +29,7 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
     // quando a requisição for feita e logo após passar os valores para este componente, o próprio será altera alterado (countriesList). Conseguimos "capturar" essa mudança através do ngOnChanges.
     // Com isso, os valores é passado para a propriedade "countriesListFiltered" como sendo o valor inicial
     this.countriesListFiltered = this.countriesList;
-    this.stateListFiltered = this.statesList
+    this.stateListFiltered = this.statesList;
   }
 
   get emailControl(): FormControl {
@@ -41,6 +42,10 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
 
   get stateControl(): FormControl {
     return this.userForm.get('generalInformations.state') as FormControl;
+  }
+
+  get maritalStatusArray() {
+    return maritalStatusArray;
   }
 
   onCountrySelected(event: MatAutocompleteSelectedEvent) {
