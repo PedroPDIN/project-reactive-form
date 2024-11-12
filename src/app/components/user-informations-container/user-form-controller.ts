@@ -9,18 +9,19 @@ export class UserFormController {
   userForm!: FormGroup;
 
   private _fb = inject(FormBuilder);
+  private emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   constructor() {
     this.createUserForm();
-  };
+  }
 
   get generalInformations(): FormGroup {
     return this.userForm.get('generalInformations') as FormGroup;
-  };
+  }
 
   get phoneList(): FormArray {
     return this.userForm.get('contactInformations.phoneList') as FormArray;
-  };;
+  }
 
   get addressList(): FormArray {
     return this.userForm.get('contactInformations.addressList') as FormArray;
@@ -28,7 +29,7 @@ export class UserFormController {
 
   get dependentsList(): FormArray {
     return this.userForm.get('dependentsList') as FormArray;
-  };
+  }
 
   fulFillUserForm(user: IUser) {
     this.resetUserForm();
@@ -37,7 +38,7 @@ export class UserFormController {
     this.fulFillPhoneList(user.phoneList);
     this.fulFillAddressList(user.addressList);
     this.fulFillDependentsList(user.dependentsList);
-  };
+  }
 
   private resetUserForm() {
     this.userForm.reset();
@@ -52,11 +53,11 @@ export class UserFormController {
 
     this.dependentsList.reset();
     this.dependentsList.clear();
-  };
+  }
 
   private fulFillGeneralInformations(user: IUser) {
     this.generalInformations.patchValue(user);
-  };
+  }
 
   private fulFillPhoneList(userPhoneList: PhoneList) {
     userPhoneList.forEach((phone) => {
@@ -69,7 +70,7 @@ export class UserFormController {
         })
       );
     });
-  };
+  }
 
   private fulFillAddressList(userAddressList: AddressList) {
     userAddressList.forEach((address) => {
@@ -84,7 +85,7 @@ export class UserFormController {
         })
       );
     });
-  };
+  }
 
   private fulFillDependentsList(userDependentsList: DependentsList) {
     userDependentsList.forEach((dependent) => {
@@ -95,14 +96,14 @@ export class UserFormController {
           document: [dependent.document, Validators.required],
         })
       );
-    })
-  };
+    });
+  }
 
   private createUserForm() {
     this.userForm = this._fb.group({
       generalInformations: this._fb.group({
         name: ['', Validators.required],
-        email: ['', Validators.required],
+        email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
         country: ['', Validators.required],
         state: ['', Validators.required],
         maritalStatus: [null, Validators.required],
@@ -115,5 +116,5 @@ export class UserFormController {
       }),
       dependentsList: this._fb.array([]),
     });
-  };
+  }
 };

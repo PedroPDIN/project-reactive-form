@@ -1,7 +1,12 @@
 <mat-tab-group class="p-4" [(selectedIndex)]="currentTabIndex">
   <mat-tab label="Geral">
     <app-general-informations [user]="userSelected"></app-general-informations>
-    <app-general-informations-edit></app-general-informations-edit>
+    <!-- O userForm é declarado no controller que é estendido no componente. -->
+    <app-general-informations-edit
+    [userForm]="userForm"
+    [countriesList]="countriesList"
+    [statesList]="statesList"
+    (countrySelectedEmit)="countrySelectedEmit($event)"></app-general-informations-edit>
   </mat-tab>
 
   <mat-tab label="Contato">
