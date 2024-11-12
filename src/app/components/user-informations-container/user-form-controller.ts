@@ -4,6 +4,7 @@ import { IUser } from "../../interfaces/user/user.interface";
 import { PhoneList } from "../../types/phone-list.types";
 import { AddressList } from "../../types/address.list.type";
 import { DependentsList } from "../../types/dependents-list.type";
+import { convertPtBrDateToDateObj } from "../../utils/convert-pt-br-date-to-date-obj";
 
 export class UserFormController {
   userForm!: FormGroup;
@@ -56,7 +57,12 @@ export class UserFormController {
   }
 
   private fulFillGeneralInformations(user: IUser) {
-    this.generalInformations.patchValue(user);
+    const newUser = {
+      ...user,
+      birthDate: convertPtBrDateToDateObj(user.birthDate),
+    };
+
+    this.generalInformations.patchValue(newUser);
   }
 
   private fulFillPhoneList(userPhoneList: PhoneList) {

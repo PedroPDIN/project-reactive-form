@@ -66,14 +66,16 @@
          mask="separator.2"
          thousandSeparator="."
          decimalSeparator=",">
+         <mat-error>A <strong>Renda Mensal</strong> é obrigatório.</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Data de Nascimento:</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="birthDate">
+        <input matInput [matDatepicker]="picker" formControlName="birthDate" readonly>
         <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error>A <strong>Data de Nascimento</strong> é obrigatório.</mat-error>
       </mat-form-field>
 
     </div>
