@@ -1,6 +1,6 @@
 <div class="p-4 grid gap-4 lg:grid-cols-3">
    <app-user-info-item
    *ngFor="let phone of phoneListToDisplay"
-   [title]="phone.type"
+   [title]="phone.typeDescription"
    [text]="phone.phoneNumber"></app-user-info-item>
 </div>
