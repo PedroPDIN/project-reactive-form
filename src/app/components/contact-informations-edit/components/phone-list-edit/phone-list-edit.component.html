@@ -1,25 +1,24 @@
-<div class="grid lg:grid-cols-3 lg:gap-4">
-  <mat-form-field class="w-full">
-    <mat-label>Residencial:</mat-label>
-    <input
-      matInput
-      placeholder="+55 12 12345-1234"
-      mask="+00 00 0000-0000"/>
-  </mat-form-field>
+<form class="grid lg:grid-cols-3 lg:gap-4" [formGroup]="userForm">
+  <ng-container formGroupName="contactInformations">
+    <ng-container formArrayName="phoneList">
 
-  <mat-form-field class="w-full">
-    <mat-label>Celular:</mat-label>
-    <input
-      matInput
-      placeholder="+55 12 12345-1234"
-      mask="+00 00 00000-0000"/>
-  </mat-form-field>
+      <mat-form-field class="w-full" *ngFor="let phone of phoneList.controls; let i = index" [formGroupName]="i">
+        <!--A utilização do da diretiva ngFor, é apenas para percorrer os controls para ter acesso a elas (com isso utilizando para buscar outros valores do control, como por exemplo, validações)
+        e também para acessar o index (no caso nesse contexto o index do FormGroup).-->
+        <mat-label>{{ phoneList.value[i].typeDescription }}</mat-label>
+        <input
+          matInput
+          [placeholder]="phoneList.value[i].type | phonePlaceholder"
+          [mask]="phoneList.value[i].type | phoneMask"
+          formControlName="number"/>
+          <mat-error *ngIf="phone.get('number')?.hasError('required')">
+            O Telefone <strong>{{ phoneList.value[i].typeDescription  }}</strong> é obrigatório
+          </mat-error>
+          <mat-error *ngIf="phone.get('number')?.hasError('mask')">
+            O Telefone <strong>{{ phoneList.value[i].typeDescription  }}</strong> é inválido
+          </mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="w-full">
-    <mat-label>Emergencial:</mat-label>
-    <input
-      matInput
-      placeholder="+55 12 12345-1234"
-      mask="+00 00 0000-0000||+00 00 00000-0000"/>
-  </mat-form-field>
-</div>
+    </ng-container>
+  </ng-container>
+</form>
