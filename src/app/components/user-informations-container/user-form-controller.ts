@@ -7,6 +7,8 @@ import { DependentsList } from "../../types/dependents-list.type";
 import { convertPtBrDateToDateObj } from "../../utils/convert-pt-br-date-to-date-obj";
 import { preparePhoneList } from "../../utils/prepare-phone-list";
 import { PhoneTypeEnum } from "../../enums/phone-type.enum";
+import { prepareAddressList } from "../../utils/prepare-address-list";
+import { requiredAddressValidator } from "../../utils/user-form-validators/required-address-validator";
 
 export class UserFormController {
   userForm!: FormGroup;
@@ -80,18 +82,21 @@ export class UserFormController {
   }
 
   private fulFillAddressList(userAddressList: AddressList) {
-    userAddressList.forEach((address) => {
+    prepareAddressList(userAddressList, false, (address) => {
       this.addressList.push(
         this._fb.group({
-          type: [address.type, Validators.required],
-          street: [address.street, Validators.required],
-          complement: [address.complement, Validators.required],
-          country: [address.country, Validators.required],
-          state: [address.state, Validators.required],
-          city: [address.city, Validators.required],
+          type: [address.type], // não será utilizado no front/interface
+          typeDescription: [{ value: address.typeDescription, disabled: true }],
+          street: [address.street],
+          complement: [address.complement],
+          country: [address.country],
+          state: [address.state],
+          city: [address.city],
+        }, {
+          validators: requiredAddressValidator,
         })
       );
-    });
+    })
   }
 
   private fulFillDependentsList(userDependentsList: DependentsList) {

@@ -13,8 +13,12 @@
   </mat-tab>
 
   <mat-tab label="Contato">
-    <app-contact-informations [user]="userSelected"></app-contact-informations>
+    <app-contact-informations
+      *ngIf="!isInEditMode"
+      [user]="userSelected"></app-contact-informations>
+
     <app-contact-informations-edit
+      *ngIf="isInEditMode"
       [userForm]="userForm"></app-contact-informations-edit>
   </mat-tab>
 
