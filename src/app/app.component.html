@@ -1,7 +1,10 @@
 <div class="p-4 max-w-screen-xl mx-auto">
   <mat-card>
     <mat-card-content>
-      <app-users-list [usersList]="usersList" (onUserSelected)="onUserSelected($event)"></app-users-list>
+      <app-users-list
+        [isInEditMode]="isInEditMode"
+        [usersList]="usersList"
+        (onUserSelected)="onUserSelected($event)"></app-users-list>
 
       <app-buttons-container
       [isInEditMode]="isInEditMode"

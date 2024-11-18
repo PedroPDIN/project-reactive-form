@@ -5,6 +5,7 @@
     (click)="onUserSelected(i)"
     [ngClass]="{
       'user-selected': userSelectedIndex === i,
+      'user-card-disabled': isInEditMode && userSelectedIndex !== i
     }">
     <mat-card-header>
       <mat-card-title>{{ user.name }}</mat-card-title>
