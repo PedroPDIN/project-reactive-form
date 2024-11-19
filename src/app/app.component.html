@@ -8,16 +8,16 @@
 
       <app-buttons-container
       [isInEditMode]="isInEditMode"
+      [enableSaveButton]="enableSaveButton"
       (onEditButton)="onEditButton()"
       (onCancelButton)="onCancelButton()"
-      *ngIf="userSelectedIndex !== undefined"
-      ></app-buttons-container>
+      *ngIf="userSelectedIndex !== undefined"></app-buttons-container>
 
       <app-user-informations-container
       *ngIf="userSelectedIndex !== undefined"
       [isInEditMode]="isInEditMode"
       [userSelected]="userSelected"
-      ></app-user-informations-container>
+      (onFormStatusChange)="onFormStatusChange($event)"></app-user-informations-container>
 
 
     </mat-card-content>
