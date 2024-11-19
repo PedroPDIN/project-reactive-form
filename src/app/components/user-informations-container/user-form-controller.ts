@@ -70,10 +70,12 @@ export class UserFormController {
   addDependent() {
     // invocando o método createDependentGroup() sem passar o parâmetro ira criar um novo dependente com seus valores vazios.
     this.dependentsList.push(this.createDependentGroup());
+    this.dependentsList.markAsDirty();
   }
 
   removeDependent(dependentIndex: number) {
     this.dependentsList.removeAt(dependentIndex);
+    this.dependentsList.markAsDirty();
   }
 
   private resetUserForm() {

@@ -7,19 +7,19 @@
         (onUserSelected)="onUserSelected($event)"></app-users-list>
 
       <app-buttons-container
-      [isInEditMode]="isInEditMode"
-      [enableSaveButton]="enableSaveButton"
-      (onEditButton)="onEditButton()"
-      (onCancelButton)="onCancelButton()"
-      *ngIf="userSelectedIndex !== undefined"></app-buttons-container>
+        [isInEditMode]="isInEditMode"
+        [enableSaveButton]="enableSaveButton"
+        (onEditButton)="onEditButton()"
+        (onCancelButton)="onCancelButton()"
+        *ngIf="userSelectedIndex !== undefined"></app-buttons-container>
 
       <app-user-informations-container
-      *ngIf="userSelectedIndex !== undefined"
-      [isInEditMode]="isInEditMode"
-      [userSelected]="userSelected"
-      (onFormStatusChange)="onFormStatusChange($event)"></app-user-informations-container>
-
-
+        *ngIf="userSelectedIndex !== undefined"
+        [isInEditMode]="isInEditMode"
+        [userSelected]="userSelected"
+        (onFormStatusChange)="onFormStatusChange($event)"
+        (onUserFormFirstChange)="onUserFormFirstChange()"
+        ></app-user-informations-container>
     </mat-card-content>
   </mat-card>
 </div>

@@ -65,6 +65,8 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
   }
 
   private filterCountriesList(searchTerm: string): void {
+    if (!searchTerm) return;
+
     this.countriesListFiltered = this.countriesList.filter((country) => {
       return country.name
         .toLowerCase()
@@ -77,6 +79,8 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
   }
 
   private filterStateList(searchTerm: string) {
+    if (!searchTerm) return;
+
     this.stateListFiltered = this.statesList.filter((state) => {
       return state.name.toLowerCase().includes(searchTerm.toLowerCase().trim());
     });

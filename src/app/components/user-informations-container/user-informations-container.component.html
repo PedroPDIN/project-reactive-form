@@ -48,12 +48,16 @@
     </ng-template>
 
     <app-dependents-list
+      *ngIf="!isInEditMode"
       [dependentList]="userSelected.dependentsList"
     ></app-dependents-list>
     <app-dependents-list-edit
+      *ngIf="isInEditMode"
       [userForm]="userForm"
       (onRemoveDependent)="removeDependent($event)"
       (onAddDependent)="addDependent()"></app-dependents-list-edit>
   </mat-tab>
 </mat-tab-group>
+
+<button (click)="mostraForm()">Mostra Form</button>
 

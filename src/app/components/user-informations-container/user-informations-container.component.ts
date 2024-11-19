@@ -3,7 +3,7 @@ import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
 import { CountriesList } from '../../types/countries-list.type';
 import { CountriesService } from '../../services/countries.service';
-import { distinctUntilChanged, take } from 'rxjs';
+import { distinctUntilChanged, Subscription, take } from 'rxjs';
 import { StatesList } from '../../types/states-list.type';
 import { StatesService } from '../../services/states.service';
 
@@ -21,6 +21,9 @@ export class UserInformationsContainerComponent
   countriesList: CountriesList = [];
   statesList: StatesList = [];
 
+  // propriedade de controle para desinscrever de um "usuário" quando selecionar outro usuário.
+  userFormValueChangeSubs!: Subscription;
+
   private readonly _countriesService = inject(CountriesService);
   private readonly _statesService = inject(StatesService);
 
@@ -28,6 +31,7 @@ export class UserInformationsContainerComponent
   @Input({ required: true }) userSelected: IUser = {} as IUser;
 
   @Output('onFormStatusChange') onFormStatusChangeEmit = new EventEmitter<boolean>();
+  @Output('onUserFormFirstChange') onUserFormFirstChangeEmit = new EventEmitter<void>();
 
   ngOnInit() {
     this.onUserFormStatusChange();
@@ -43,9 +47,15 @@ export class UserInformationsContainerComponent
       Object.keys(changes['userSelected'].currentValue).length > 0;
 
     if (HAS_USER_SELECTED) {
+      // Quando "userFormValueChangeSubs" estiver valorizado quando selecionar um novo usuário, irá ser feito um desinscrição.
+      // Evitando assim acumulando os dados do background da aplicação e evitando possíveis erros.
+      if (this.userFormValueChangeSubs) this.userFormValueChangeSubs.unsubscribe();
+
       // Também a possibilidade de passar para o parâmetro do método 'fulFillUserForm' o valor 'changes['userSelected'].currentValue', daria o mesmo resultado final.
       // Pois, o currentValue também é o valor do usuário selecionado.
       this.fulFillUserForm(this.userSelected);
+
+      this.onUserFormFistChange();
 
       this.getStatesList(this.userSelected.country);
     }
@@ -53,6 +63,12 @@ export class UserInformationsContainerComponent
 
   countrySelectedEmit(countryName: string) {
     this.getStatesList(countryName);
+  }
+
+  private onUserFormFistChange() {
+    this.userFormValueChangeSubs = this.userForm.valueChanges
+      .pipe(take(1))
+      .subscribe(() => this.onUserFormFirstChangeEmit.emit());
   }
 
   private onUserFormStatusChange() {
@@ -77,5 +93,9 @@ export class UserInformationsContainerComponent
       .subscribe((countriesList: CountriesList) => {
         this.countriesList = countriesList;
       });
+  }
+
+  mostraForm() {
+    console.log(this.userForm);
   }
 }
