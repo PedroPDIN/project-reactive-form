@@ -25,6 +25,10 @@ export class UserFormController {
     return this.userForm.get('generalInformations') as FormGroup;
   }
 
+  get contactInformations(): FormGroup {
+    return this.userForm.get('contactInformations') as FormGroup
+  }
+
   get phoneList(): FormArray {
     return this.userForm.get('contactInformations.phoneList') as FormArray;
   }
@@ -37,6 +41,18 @@ export class UserFormController {
     return this.userForm.get('dependentsList') as FormArray;
   }
 
+  get generalInformationValid(): boolean {
+    return this.generalInformations.valid;
+  }
+
+  get contactInformationsValid(): boolean {
+    return this.contactInformations.valid as boolean;
+  }
+
+  get dependentsListValid(): boolean {
+    return this.dependentsList.valid;
+  }
+
   fulFillUserForm(user: IUser) {
     this.resetUserForm();
 
@@ -44,6 +60,11 @@ export class UserFormController {
     this.fulFillPhoneList(user.phoneList);
     this.fulFillAddressList(user.addressList);
     this.fulFillDependentsList(user.dependentsList);
+
+    // quando redenrizar as informações de edição, já definir ou elementos como tocados (markAllAsTouched()) e rodar todos os validadores (updateValueAndValidity()), devido a isso, forçando o erro.
+    // basta ver esse exemplo na tab 'contatos' do usuário 'Laura'.
+    this.userForm.markAllAsTouched();
+    this.userForm.updateValueAndValidity();
   }
 
   addDependent() {

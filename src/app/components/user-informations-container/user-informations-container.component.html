@@ -1,5 +1,13 @@
 <mat-tab-group class="p-4" [(selectedIndex)]="currentTabIndex">
-  <mat-tab label="Geral">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Geral
+      <mat-icon
+        class="red-circle-icon"
+        color="warn"
+        *ngIf="isInEditMode && !generalInformationValid">circle</mat-icon>
+    </ng-template>
+
     <app-general-informations
       *ngIf="!isInEditMode"
       [user]="userSelected"></app-general-informations>
@@ -12,7 +20,15 @@
       (countrySelectedEmit)="countrySelectedEmit($event)"></app-general-informations-edit>
   </mat-tab>
 
-  <mat-tab label="Contato">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Contato
+      <mat-icon
+        class="red-circle-icon"
+        color="warn"
+        *ngIf="isInEditMode && !contactInformationsValid">circle</mat-icon>
+    </ng-template>
+
     <app-contact-informations
       *ngIf="!isInEditMode"
       [user]="userSelected"></app-contact-informations>
@@ -22,7 +38,15 @@
       [userForm]="userForm"></app-contact-informations-edit>
   </mat-tab>
 
-  <mat-tab label="Dependente">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Dependente
+      <mat-icon
+        class="red-circle-icon"
+        color="warn"
+        *ngIf="isInEditMode && !dependentsListValid">circle</mat-icon>
+    </ng-template>
+
     <app-dependents-list
       [dependentList]="userSelected.dependentsList"
     ></app-dependents-list>
