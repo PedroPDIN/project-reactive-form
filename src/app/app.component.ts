@@ -5,6 +5,7 @@ import { take } from 'rxjs';
 import { IUser } from './interfaces/user/user.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly _usersService: UsersService,
-    private readonly _matDialog: MatDialog,
+    private readonly _matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -44,25 +45,57 @@ export class AppComponent implements OnInit {
 
   onCancelButton() {
     if (this.userFormUpdated) {
-      const dialogRef = this._matDialog.open(ConfirmationDialogComponent, {
-        data: {
-          title: 'O Formulário for alterado',
-          message: 'Deseja realmente cancelar as alterações feitas no formulário?'
-        }
-      })
+      // const dialogRef = this._matDialog.open(ConfirmationDialogComponent, {
+      //   data: {
+      //     title: 'O Formulário for alterado',
+      //     message:
+      //       'Deseja realmente cancelar as alterações feitas no formulário?',
+      //   },
+      // });
 
-      dialogRef.afterClosed().subscribe((value: boolean) => {
+      // dialogRef.afterClosed().subscribe((value: boolean) => {
+      //   // quando for false vai voltar, ou seja sair do dialog e continuar a tela de edição.
+      //   if (!value) return;
+
+      //   // se for true, irá cancelar a operação, voltado para o modo de consulta e definir que o formulário não foi mas atualizado (ou seja voltar no zero).
+      //   this.isInEditMode = false;
+      //   this.userFormUpdated = false;
+      // });
+
+      const dataCancel: IDialogConfirmationData = {
+        title: 'O Formulário for alterado',
+        message:
+          'Deseja realmente cancelar as alterações feitas no formulário?',
+      };
+
+      this.openConfirmationDialog(dataCancel, (value: boolean) => {
         // quando for false vai voltar, ou seja sair do dialog e continuar a tela de edição.
         if (!value) return;
 
         // se for true, irá cancelar a operação, voltado para o modo de consulta e definir que o formulário não foi mas atualizado (ou seja voltar no zero).
         this.isInEditMode = false;
         this.userFormUpdated = false;
-      })
-
+      });
     } else {
       this.isInEditMode = false;
     }
+  }
+
+  onSaveButton() {
+    const dataSave: IDialogConfirmationData = {
+      title: 'Confirmar alteração de dados',
+      message: 'Deseja realmente salvar os valores alterados',
+    };
+
+    this.openConfirmationDialog(dataSave, (value: boolean) => {
+      // condição de quando o usuário clicou em salvar ele interagiu com botão de não, o dialog/modal fecha e o usuário continuar em modo de edição.
+      if (!value) return;
+
+      this.saveUserInfos();
+
+      this.isInEditMode = false;
+      this.userFormUpdated = false;
+    });
   }
 
   onEditButton() {
@@ -77,5 +110,21 @@ export class AppComponent implements OnInit {
 
   onUserFormFirstChange() {
     this.userFormUpdated = true;
-  };
+  }
+
+  private openConfirmationDialog(
+    data: IDialogConfirmationData,
+    callback: (value: boolean) => void
+  ) {
+    const dialogRef = this._matDialog.open(ConfirmationDialogComponent, {
+      data,
+    });
+
+    // capturamos o boolean do subscribe e atribuirmos ao callbak.
+    dialogRef.afterClosed().subscribe(callback);
+  }
+
+  private saveUserInfos() {
+    console.log('Valores alterados!!!')
+  }
 }

@@ -14,5 +14,6 @@
     'bg-green-600 hover:bg-green-500': enableSaveButton,
   }"
   [disabled]="!enableSaveButton"
-  *ngIf="isInEditMode">Salvar</button>
+  *ngIf="isInEditMode"
+  (click)="onSaveButton()">Salvar</button>
 </div>
