@@ -6,6 +6,8 @@ import { IUser } from './interfaces/user/user.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
+import { UpdateUserService } from './services/update-user.service';
+import { UserFormRawValueService } from './services/user-form-raw-value.service';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly _usersService: UsersService,
+    private readonly _updateUserService: UpdateUserService,
+    private readonly _userFormRawValueService: UserFormRawValueService,
     private readonly _matDialog: MatDialog
   ) {}
 
@@ -125,6 +129,18 @@ export class AppComponent implements OnInit {
   }
 
   private saveUserInfos() {
-    console.log('Valores alterados!!!')
+    const newUser: IUser = this.convertUserFormToUser()
+
+    this._updateUserService
+      .updateUser(newUser)
+      .subscribe((newUserResponse: IUser) => {
+        if (this.userSelectedIndex === undefined) return;
+
+        this.usersList[this.userSelectedIndex] = newUserResponse;
+      });
+  }
+  private convertUserFormToUser(): IUser {
+    console.log('userFormRaeValue', this._userFormRawValueService.userFormRawValue)
+    return {} as IUser;
   }
 }
