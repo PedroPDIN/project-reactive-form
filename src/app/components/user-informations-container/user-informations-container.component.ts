@@ -94,8 +94,4 @@ export class UserInformationsContainerComponent
         this.countriesList = countriesList;
       });
   }
-
-  mostraForm() {
-    console.log(this.userForm);
-  }
 }

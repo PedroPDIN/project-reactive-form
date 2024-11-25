@@ -104,6 +104,7 @@ export class AppComponent implements OnInit {
   }
 
   onEditButton() {
+    this.userSelected = structuredClone(this.userSelected);
     this.isInEditMode = true;
   }
 
@@ -130,7 +131,7 @@ export class AppComponent implements OnInit {
   }
 
   private saveUserInfos() {
-    const newUser: IUser = this.convertUserFormToUser()
+    const newUser: IUser = convertUserFormToUser(this._userFormRawValueService.userFormRawValue);
 
     this._updateUserService
       .updateUser(newUser)
@@ -138,15 +139,7 @@ export class AppComponent implements OnInit {
         if (this.userSelectedIndex === undefined) return;
 
         this.usersList[this.userSelectedIndex] = newUserResponse;
+        this.userSelected = structuredClone(newUserResponse);
       });
-  }
-  private convertUserFormToUser(): IUser {
-    // console.log('userFormRaeValue', this._userFormRawValueService.userFormRawValue);
-
-    console.log(
-      'convertUserFormToUser',
-      convertUserFormToUser(this._userFormRawValueService.userFormRawValue)
-    );
-    return {} as IUser;
   }
 }

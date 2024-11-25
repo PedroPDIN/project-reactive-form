@@ -8,6 +8,7 @@ import { UserFormAddressList } from "../types/user-form-address-list.type";
 import { UserFormDependentList } from "../types/user-form-dependent-list.type";
 import { UserFormPhoneList } from "../types/user-form-phone-list.type";
 import { convertDateObjToPtBrDate } from "./convert-date-obj-to-pt-br-date";
+import { formatNumber } from "./format-number";
 
 export const convertUserFormToUser = (userForm: IUserForm): IUser => {
   let newUser: Partial<IUser> = {} as IUser;
@@ -33,12 +34,16 @@ const convertGeneralInformations = (generalInformations: IUserFormGeneralInforma
 }
 
 const convertPhoneList = (phoneList: UserFormPhoneList): PhoneList => {
-  const newUserPhoneList = phoneList.map((phone) => ({
-    type: phone.type,
-    internationalCode: phone.number.substring(0, 2),
-    areaCode: phone.number.substring(2, 4),
-    number: phone.number.substring(4),
-  }));
+  const newUserPhoneList = phoneList
+    .map((phone) => ({
+      type: phone.type,
+      internationalCode: '+' + phone.number.substring(0, 2),
+      areaCode: phone.number.substring(2, 4),
+      number: formatNumber(phone.number.substring(4)),
+    }))
+    // após a edição de contato, e não valores no campo "emergencial", iria criar preencher com valores não esperados.
+    // Essa logica(no caso o filter) corrige este problema(praticamento removendo o campo emergencial caso esteja vazio, com isso, a aplicação ira tratar a ausência desse valor retornando o valor esperado).
+    .filter((phone) => phone.areaCode !== '');
 
   return newUserPhoneList;
 }
@@ -51,7 +56,7 @@ const convertAddressList = (addressList: UserFormAddressList): AddressList => {
     country: address.country,
     state: address.state,
     city: address.city,
-  }));
+  })).filter((address) => address.street !== '');
 
   return newUserAddressList;
 }

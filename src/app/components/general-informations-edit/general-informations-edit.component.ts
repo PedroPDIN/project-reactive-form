@@ -49,7 +49,6 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
   }
 
   onCountrySelected(event: MatAutocompleteSelectedEvent) {
-    // console.log(event.option.value);
     this.onCountrySelectedEmit.emit(event.option.value);
   }
 
